@@ -23,11 +23,13 @@ jobs:
         run: flake8 formation_indus_ds_avancee
       - name: Run Vulture
         run: vulture formation_indus_ds_avancee scripts --min-confidence 100
-  test:
-    runs-on: ubuntu-latest
-    steps:
       - name: Run unit tests
         run: python -m pytest tests/test_unit
       - name: Run behave tests
         run: python -m behave tests/test_functional/features
+      - name: Quality
+        run: |
+          python -m pytest --cov=formation_indus_ds_avancee/ tests/test_unit/ -vv -p no:warnings
+          ./tests/tests_pyramid.sh
+        
 
