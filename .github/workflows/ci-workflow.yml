@@ -20,9 +20,9 @@ jobs:
       - name: Install dev dependencies
         run:  pip install -r requirements_test.txt
       - name: Run Linter
-        run:  flake8
+        run:  flake8 Formation-MLOps-2
       - name: Run Vulture
-        run:  vulture
+        run:  vulture Formation-MLOps-2/
       - name: Run tests
         run:  make tests-unitaires 
 
