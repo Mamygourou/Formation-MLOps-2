@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from config import MODEL_PATH
 from formation_indus_ds_avancee.feature_engineering import prepare_features
 from formation_indus_ds_avancee.train_and_predict import predict
