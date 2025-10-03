@@ -9,7 +9,6 @@ from dags.config import MONITORING_TABLE_NAME
 from formation_indus_ds_avancee.monitoring import monitor_with_io
 
 
-@mark.skip("Complete monitor function and test, then remove the mark.skip")
 @patch('pandas.read_csv')
 def test_monitor_with_io_should_write_predictions_mean_to_db(mocked_read_csv):
     # Given
@@ -20,7 +19,7 @@ def test_monitor_with_io_should_write_predictions_mean_to_db(mocked_read_csv):
     mocked_read_csv.return_value = predictions
     db_con_str = 'sqlite:///test_db.db'
     # Start filling expected
-    expected = pd.DataFrame({'predicitons_time': [given_date], 'predictions' : [13]})
+    expected = pd.DataFrame({'predicitons_time': [given_date], 'predictions' : [13.0]})
     # End filling expected
 
     # When
@@ -30,9 +29,9 @@ def test_monitor_with_io_should_write_predictions_mean_to_db(mocked_read_csv):
     actual = pd.read_sql(f'SELECT * FROM {MONITORING_TABLE_NAME}', db_conn, parse_dates=['predictions_time'])
 
     # Then
-    pd.testing.assert_frame_equal(expected, actual)
     db_conn.close()
     os.remove('test_db.db')
+    pd.testing.assert_frame_equal(expected, actual)
 
 
 def test_monitoring_table_name_as_been_changed():
